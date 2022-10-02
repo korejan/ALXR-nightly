@@ -1,4 +1,4 @@
-name: Release nightly
+name: Release ALXR nightly
 
 env:
   CARGO_TERM_COLOR: always
@@ -56,6 +56,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -100,6 +101,7 @@ jobs:
           CXX: /usr/bin/g++-10
           RUST_BACKTRACE: 1
         run: |
+          cargo xtask bump-alxr-versions --nightly
           cargo xtask build-alxr-client --release --bundle-ffmpeg --gpl --no-nvidia --ffmpeg-version=n4.4
           tar -czvf ./build/alxr-client-linux.tar.gz -C ./build/release/alxr_client_linux .
       
@@ -120,6 +122,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -164,6 +167,7 @@ jobs:
           CXX: /usr/bin/g++-10
           RUST_BACKTRACE: 1
         run: |
+          cargo xtask bump-alxr-versions --nightly
           cargo xtask build-alxr-client --bundle-ffmpeg --gpl --no-nvidia --ffmpeg-version=n4.4
           tar -czvf ./build/alxr-client-linux-debug.tar.gz -C ./build/debug/alxr_client_linux .
             
@@ -184,6 +188,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -208,6 +213,7 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
+          cargo xtask bump-alxr-versions --nightly
           # without nvidia/cuda
           cargo xtask build-alxr-client --release --bundle-ffmpeg --gpl --no-nvidia
           tar -czvf ./build/alxr-client-ubuntu-22.04-no-nvidia.tar.gz -C ./build/release/alxr_client_linux .
@@ -242,6 +248,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -266,6 +273,7 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
+          cargo xtask bump-alxr-versions --nightly
           # without nvidia/cuda
           cargo xtask build-alxr-client --bundle-ffmpeg --gpl --no-nvidia
           tar -czvf ./build/alxr-client-ubuntu-22.04-no-nvidia-debug.tar.gz -C ./build/debug/alxr_client_linux .
@@ -304,6 +312,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -326,6 +335,8 @@ jobs:
 
           # Fetch alxr-engine submodule.
           git submodule update --init --recursive
+
+          cargo xtask bump-alxr-versions --nightly
       
       - name: Build & Package alxr-android-generic-release
         run: |
@@ -383,6 +394,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -405,6 +417,8 @@ jobs:
           
           # Fetch alxr-engine submodule.
           git submodule update --init --recursive
+
+          cargo xtask bump-alxr-versions --nightly
       
       - name: Build & Package alxr-android-generic-debug
         run: |
@@ -467,6 +481,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -495,6 +510,8 @@ jobs:
         id: build-release
         run: |
           $env:Path="$env:NINJA_HOME;$env:Path"
+
+          cargo xtask bump-alxr-versions --nightly
 
           # without nvidia/cuda
           cargo xtask build-alxr-client --release --no-nvidia
@@ -534,6 +551,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -563,8 +581,8 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
-          $env:Path="$env:NINJA_HOME;$env:Path"
-          
+          $env:Path="$env:NINJA_HOME;$env:Path"          
+          cargo xtask bump-alxr-versions --nightly
           # without nvidia/cuda
           cargo xtask build-alxr-client --no-nvidia
           7z a -tzip .\build\alxr-client-win-x64-no-nvidia-debug.zip .\build\debug\alxr_client_windows
@@ -601,6 +619,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -616,7 +635,8 @@ jobs:
           rustup toolchain install nightly
           rustup component add rust-src --toolchain nightly-x86_64-pc-windows-msvc
           rustup update
-            
+          cargo xtask bump-alxr-versions --nightly
+        
       - name: Build & Package UWP Arm64 Debug (.msix)
         run: cargo xtask build-alxr-uwp-arm64
       
@@ -656,6 +676,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
       - uses: actions-rs/toolchain@v1
         with:
@@ -671,6 +692,7 @@ jobs:
           rustup toolchain install nightly
           rustup component add rust-src --toolchain nightly-x86_64-pc-windows-msvc
           rustup update
+          cargo xtask bump-alxr-versions --nightly
       
       - name: Build & Package UWP Arm64 Release (.msix)
         run: cargo xtask build-alxr-uwp-arm64 --release
@@ -706,6 +728,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          repository: "korejan/ALVR"
           ref: ${{ needs.build_uwp_app_bundle_release.outputs.release_ref }}
       - name: Upload UWP Cert
         uses: actions/upload-release-asset@v1
@@ -730,8 +753,8 @@ jobs:
         build_alxr_android_debug,
         build_alxr_win_x64_release,
         build_alxr_win_x64_debug,
-        build_uwp_app_bundle_debug,
-        build_uwp_app_bundle_release,
+        #build_uwp_app_bundle_debug,
+        #build_uwp_app_bundle_release,
         upload_uwp_cert
       ]
     steps:
