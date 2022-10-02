@@ -40,12 +40,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # Release tag is taken from the gen_tag job.
-          tag_name: ${{ steps.gen_tag.outputs.version_tag }}
-          release_name:  ${{ steps.gen_tag.outputs.version_tag }}
-          # TODO: gather commit messages to post here in the body
+          tag_name: ${{ steps.output_ref.outputs.version_tag }}
+          release_name:  ${{ steps.output_ref.outputs.version_tag }}
+          # TODO: gather commit output_ref to post here in the body
           body: |
-            Nightly release of ALXR: ${{ steps.gen_tag.outputs.version_tag }}
-            Generated from commit: korejan/ALVR@${{ steps.gen_tag.outputs.release_ref }}
+            Nightly release of ALXR: ${{ steps.output_ref.outputs.version_tag }}
+            Generated from commit: korejan/ALVR@${{ steps.output_ref.outputs.release_ref }}
           draft: true
           prerelease: false
   
