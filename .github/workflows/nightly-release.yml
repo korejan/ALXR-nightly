@@ -49,6 +49,65 @@ jobs:
           draft: true
           prerelease: false
   
+  build_windows_server:
+    runs-on: windows-2022
+    needs: [prepare_release]
+    env:
+      # For bindgen to find libclang.dll, we need to give it the path to the Visual Studio package.
+      # This is specific to the GitHub windows-2019 runner.
+      LIBCLANG_PATH: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/libclang.dll'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: "korejan/ALVR"
+          ref: v18-server-mod
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - run: rustup update
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-targets: "false"
+      
+      - name: Download WiX 3.14 binaries
+        run: |
+          Invoke-WebRequest http://static.wixtoolset.org/releases/v3.14.0.4118/wix314-binaries.zip -OutFile wix314-binaries.zip
+          Expand-Archive -Path wix314-binaries.zip -DestinationPath wix314-binaries/bin
+      
+      - name: Build and package ALVR (.zip, .exe)
+        id: build
+        env:
+          WIX: "wix314-binaries"
+          RUST_BACKTRACE: 1
+        run: |
+          cargo xtask build-windows-deps
+          cargo xtask publish-server --gpl
+          $file = Get-ChildItem -Name .\build\*.exe | Select-Object -f 1
+          echo "::set-output name=exe_filename::$file"
+      
+      # Assets upload: .exe, .zip
+      - name: Upload Windows installer
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.prepare_release.outputs.upload_url }}
+          asset_path: ./build/${{ steps.build.outputs.exe_filename }}
+          asset_name: ${{ steps.build.outputs.exe_filename }}
+          asset_content_type: application/octet-stream
+      
+      - name: Upload portable server for Windows
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.prepare_release.outputs.upload_url }}
+          asset_path: ./build/alvr_server_windows.zip
+          asset_name: alvr_server_windows.zip
+          asset_content_type: application/zip
+  
   build_alxr_linux_portable_release:
     runs-on: ubuntu-20.04
     needs: [prepare_release]
@@ -781,6 +840,7 @@ jobs:
     needs:
       [
         prepare_release,
+        build_windows_server,
         build_alxr_linux_portable_release,
         build_alxr_linux_portable_debug,
         build_alxr_linux_release,
