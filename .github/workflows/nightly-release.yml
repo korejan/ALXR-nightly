@@ -274,10 +274,10 @@ jobs:
         run: |
           cargo xtask bump-alxr-versions --nightly
           # without nvidia/cuda
-          cargo xtask build-alxr-client --release --bundle-ffmpeg --gpl --no-nvidia
+          cargo xtask build-alxr-client --release --bundle-ffmpeg --gpl --no-nvidia --ffmpeg-version=release/5.1
           tar -czvf ./build/alxr-client-ubuntu-22.04-no-nvidia.tar.gz -C ./build/release/alxr_client_linux .
           # with nvidia/cuda
-          cargo xtask build-alxr-client --release --bundle-ffmpeg --gpl
+          cargo xtask build-alxr-client --release --bundle-ffmpeg --gpl --ffmpeg-version=release/5.1
           tar -czvf ./build/alxr-client-ubuntu-22.04.tar.gz -C ./build/release/alxr_client_linux_cuda .
       
       - name: Upload  ubuntu-22.04 alxr-release for Linux
@@ -334,10 +334,10 @@ jobs:
         run: |
           cargo xtask bump-alxr-versions --nightly
           # without nvidia/cuda
-          cargo xtask build-alxr-client --bundle-ffmpeg --gpl --no-nvidia
+          cargo xtask build-alxr-client --bundle-ffmpeg --gpl --no-nvidia --ffmpeg-version=release/5.1
           tar -czvf ./build/alxr-client-ubuntu-22.04-no-nvidia-debug.tar.gz -C ./build/debug/alxr_client_linux .
           # with nvidia/cuda
-          cargo xtask build-alxr-client --bundle-ffmpeg --gpl
+          cargo xtask build-alxr-client --bundle-ffmpeg --gpl --ffmpeg-version=release/5.1
           tar -czvf ./build/alxr-client-ubuntu-22.04-debug.tar.gz -C ./build/debug/alxr_client_linux_cuda .
       
       - name: Upload  ubuntu-22.04 alxr-debug for Linux
