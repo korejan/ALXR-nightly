@@ -434,7 +434,7 @@ jobs:
           sudo $SDK_MANAGER --install "ndk;25.2.9519653"
           
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
-          cargo install cargo-apk --git https://github.com/korejan/android-ndk-rs.git --branch android-manifest-entries
+          cargo install cargo-apk --git https://github.com/korejan/cargo-apk.git --branch android-manifest-entries
 
           # Fetch alxr-engine submodule.
           git submodule update --init --recursive
@@ -528,7 +528,7 @@ jobs:
           sudo $SDK_MANAGER --install "ndk;25.2.9519653"
           
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
-          cargo install cargo-apk --git https://github.com/korejan/android-ndk-rs.git --branch android-manifest-entries
+          cargo install cargo-apk --git https://github.com/korejan/cargo-apk.git --branch android-manifest-entries
           
           # Fetch alxr-engine submodule.
           git submodule update --init --recursive
