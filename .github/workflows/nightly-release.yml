@@ -306,7 +306,7 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
-          sudo apt update
+          sudo apt update && sudo apt upgrade -y
           # ALVR/FFMPEG specific depends.
           sudo apt install build-essential pkg-config nasm libva-dev libdrm-dev libvulkan-dev libx264-dev libx265-dev cmake libasound2-dev libjack-jackd2-dev libgtk-3-dev libunwind-dev libffmpeg-nvenc-dev nvidia-cuda-toolkit
           # ALXR specific depends.
@@ -366,7 +366,7 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
-          sudo apt update
+          sudo apt update && sudo apt upgrade -y
           # ALVR/FFMPEG specific depends.
           sudo apt install build-essential pkg-config nasm libva-dev libdrm-dev libvulkan-dev libx264-dev libx265-dev cmake libasound2-dev libjack-jackd2-dev libgtk-3-dev libunwind-dev libffmpeg-nvenc-dev nvidia-cuda-toolkit
           # ALXR specific depends.
@@ -430,6 +430,7 @@ jobs:
           cache-targets: "false"
       - name: Build / Install ALXR Android dependencies
         run: |
+          sudo apt update && sudo apt upgrade -y
           sudo apt install gcc-multilib
           SDK_MANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
           sudo $SDK_MANAGER --install "ndk;25.2.9519653"
@@ -525,6 +526,7 @@ jobs:
             
       - name: Build / Install ALXR Android dependencies
         run: |
+          sudo apt update && sudo apt upgrade -y
           sudo apt install gcc-multilib
           SDK_MANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
           sudo $SDK_MANAGER --install "ndk;25.2.9519653"
