@@ -463,6 +463,11 @@ jobs:
           unset ANDROID_HOME
           cargo xtask build-alxr-pico-v4 --release
       
+      - name: Build & Package alxr-android-lynx-release
+        run: |
+          unset ANDROID_HOME
+          cargo xtask build-alxr-lynx --release
+      
       - name: Upload alxr-android-generic-release
         uses: actions/upload-release-asset@v1
         env:
@@ -501,6 +506,16 @@ jobs:
           upload_url: ${{ needs.prepare_release.outputs.upload_url }}
           asset_path: ./build/release/alxr_client_android/alxr-client-pico-v4.apk
           asset_name: alxr-client-pico-v4.apk
+          asset_content_type: application/vnd.android.package-archive
+      
+      - name: Upload alxr-android-lynx-release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.prepare_release.outputs.upload_url }}
+          asset_path: ./build/release/alxr_client_android/alxr-client-lynx.apk
+          asset_name: alxr-client-lynx.apk
           asset_content_type: application/vnd.android.package-archive
   
   build_alxr_android_debug:
@@ -567,6 +582,13 @@ jobs:
           cd ./build/debug/alxr_client_android
           mv alxr-client-pico-v4.apk alxr-client-pico-v4-debug.apk
       
+      - name: Build & Package alxr-android-lynx-debug
+        run: |
+          unset ANDROID_HOME
+          cargo xtask build-alxr-lynx
+          cd ./build/debug/alxr_client_android
+          mv alxr-client-lynx.apk alxr-client-lynx-debug.apk
+      
       - name: Upload alxr-android-generic-debug
         uses: actions/upload-release-asset@v1
         env:
@@ -605,6 +627,16 @@ jobs:
           upload_url: ${{ needs.prepare_release.outputs.upload_url }}
           asset_path: ./build/debug/alxr_client_android/alxr-client-pico-v4-debug.apk
           asset_name: alxr-client-pico-v4-debug.apk
+          asset_content_type: application/vnd.android.package-archive
+      
+      - name: Upload alxr-android-lynx-v4
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.prepare_release.outputs.upload_url }}
+          asset_path: ./build/debug/alxr_client_android/alxr-client-lynx-debug.apk
+          asset_name: alxr-client-lynx-debug.apk
           asset_content_type: application/vnd.android.package-archive
   
   build_libalxr_win_x64_release:
