@@ -447,26 +447,31 @@ jobs:
       - name: Build & Package alxr-android-generic-release
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-android --generic --release
       
       - name: Build & Package alxr-android-quest-release
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-quest --release
       
       - name: Build & Package alxr-android-pico-release
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-pico --release
       
       - name: Build & Package alxr-android-pico-v4-release
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-pico-v4 --release
       
       - name: Build & Package alxr-android-lynx-release
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-lynx --release
       
       - name: Upload alxr-android-generic-release
@@ -559,6 +564,7 @@ jobs:
       - name: Build & Package alxr-android-generic-debug
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-android --generic
           cd ./build/debug/alxr_client_android
           mv alxr-client.apk alxr-client-debug.apk
@@ -566,6 +572,7 @@ jobs:
       - name: Build & Package alxr-android-quest-debug
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-quest
           cd ./build/debug/alxr_client_android
           mv alxr-client-quest.apk alxr-client-quest-debug.apk
@@ -573,6 +580,7 @@ jobs:
       - name: Build & Package alxr-android-pico-debug
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-pico
           cd ./build/debug/alxr_client_android
           mv alxr-client-pico.apk alxr-client-pico-debug.apk
@@ -580,6 +588,7 @@ jobs:
       - name: Build & Package alxr-android-pico-v4-debug
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-pico-v4
           cd ./build/debug/alxr_client_android
           mv alxr-client-pico-v4.apk alxr-client-pico-v4-debug.apk
@@ -587,6 +596,7 @@ jobs:
       - name: Build & Package alxr-android-lynx-debug
         run: |
           unset ANDROID_HOME
+          JAVA_HOME=$JAVA_HOME_17_X64
           cargo xtask build-alxr-lynx
           cd ./build/debug/alxr_client_android
           mv alxr-client-lynx.apk alxr-client-lynx-debug.apk
