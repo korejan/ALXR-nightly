@@ -174,7 +174,7 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
-          sudo apt update && sudo apt upgrade -y
+          sudo apt update # && sudo apt upgrade -y
 
           # ALVR/FFMPEG specific depends.
           sudo apt install build-essential pkg-config nasm libva-dev libdrm-dev libvulkan-dev libx264-dev libx265-dev cmake libasound2-dev libjack-jackd2-dev libgtk-3-dev libunwind-dev
@@ -182,11 +182,11 @@ jobs:
           sudo apt install git wget gcc-10 g++-10 ninja-build libxxf86vm-dev libxcb-glx0-dev libcjson-dev glslang-dev glslang-tools -y
 
           # ubuntu-focal cmake package is too old...
-          CMAKE_FILE=cmake-3.26.4-linux-x86_64.sh
-          wget https://github.com/Kitware/CMake/releases/download/v3.26.4/${CMAKE_FILE}
+          CMAKE_FILE=cmake-3.27.7-linux-x86_64.sh
+          wget https://github.com/Kitware/CMake/releases/download/v3.27.7/${CMAKE_FILE}
           chmod +x ${CMAKE_FILE}
           ./${CMAKE_FILE} --skip-license --include-subdir
-          export PATH=${PWD}/cmake-3.26.4-linux-x86_64:$PATH
+          export PATH=${PWD}/cmake-3.27.7-linux-x86_64:$PATH
           
           # ubuntu-focal glslang package is too old...
           wget https://github.com/KhronosGroup/glslang/releases/download/master-tot/glslang-master-linux-Release.zip
@@ -240,7 +240,7 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: |
-          sudo apt update && sudo apt upgrade -y
+          sudo apt update # && sudo apt upgrade -y
 
           # ALVR/FFMPEG specific depends.
           sudo apt install build-essential pkg-config nasm libva-dev libdrm-dev libvulkan-dev libx264-dev libx265-dev cmake libasound2-dev libjack-jackd2-dev libgtk-3-dev libunwind-dev
@@ -248,11 +248,11 @@ jobs:
           sudo apt install git wget gcc-10 g++-10 ninja-build libxxf86vm-dev libxcb-glx0-dev libcjson-dev glslang-dev glslang-tools -y
 
           # ubuntu-focal cmake package is too old...
-          CMAKE_FILE=cmake-3.26.4-linux-x86_64.sh
-          wget https://github.com/Kitware/CMake/releases/download/v3.26.4/${CMAKE_FILE}
+          CMAKE_FILE=cmake-3.27.7-linux-x86_64.sh
+          wget https://github.com/Kitware/CMake/releases/download/v3.27.7/${CMAKE_FILE}
           chmod +x ${CMAKE_FILE}
           ./${CMAKE_FILE} --skip-license --include-subdir
-          export PATH=${PWD}/cmake-3.26.4-linux-x86_64:$PATH
+          export PATH=${PWD}/cmake-3.27.7-linux-x86_64:$PATH
           
           # ubuntu-focal glslang package is too old...
           wget https://github.com/KhronosGroup/glslang/releases/download/master-tot/glslang-master-linux-Release.zip
@@ -733,11 +733,11 @@ jobs:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
           vulkan-use-cache: true
-      - uses: Jimver/cuda-toolkit@v0.2.10
+      - uses: Jimver/cuda-toolkit@v0.2.11
         id: cuda-toolkit
         with:
           method: 'network'
-          cuda: '12.1.0'
+          cuda: '12.2.0'
           # sub-packages: '["nvcc", "visual_studio_integration"]'
       
       - name: Build and install ALXR dependencies
@@ -806,11 +806,11 @@ jobs:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
           vulkan-use-cache: true
-      - uses: Jimver/cuda-toolkit@v0.2.10
+      - uses: Jimver/cuda-toolkit@v0.2.11
         id: cuda-toolkit
         with:
           method: 'network'
-          cuda: '12.1.0'
+          cuda: '12.2.0'
           # sub-packages: '["nvcc", "visual_studio_integration"]'
       
       - name: Build and install ALXR dependencies
