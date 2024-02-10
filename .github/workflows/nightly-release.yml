@@ -74,7 +74,7 @@ jobs:
       
       - name: Download WiX 3.14 binaries
         run: |
-          Invoke-WebRequest http://static.wixtoolset.org/releases/v3.14.0.4118/wix314-binaries.zip -OutFile wix314-binaries.zip
+          Invoke-WebRequest https://github.com/wixtoolset/wix3/releases/download/wix314rtm/wix314-binaries.zip -OutFile wix314-binaries.zip
           Expand-Archive -Path wix314-binaries.zip -DestinationPath wix314-binaries/bin
       
       - name: Build and package ALVR (.zip, .exe)
