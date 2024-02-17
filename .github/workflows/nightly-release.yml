@@ -413,7 +413,7 @@ jobs:
     needs: [prepare_release]
     env:
       RUST_BACKTRACE: 1
-      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/26.1.10909125
+      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/26.2.11394342
       ANDROID_NDK_HOME: $ANDROID_NDK_ROOT
     steps:
       - name: Checkout code
@@ -434,7 +434,7 @@ jobs:
           sudo apt update && sudo apt upgrade -y
           sudo apt install gcc-multilib
           SDK_MANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
-          sudo $SDK_MANAGER --install "ndk;26.1.10909125" "platforms;android-29"
+          sudo $SDK_MANAGER --install "ndk;26.2.11394342" "platforms;android-29"
           
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
           cargo install cargo-apk --git https://github.com/korejan/cargo-apk.git --branch android-manifest-entries
@@ -534,7 +534,7 @@ jobs:
     needs: [prepare_release]
     env:
       RUST_BACKTRACE: 1
-      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/26.1.10909125
+      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/26.2.11394342
       ANDROID_NDK_HOME: $ANDROID_NDK_ROOT
     steps:
       - name: Checkout code
@@ -556,7 +556,7 @@ jobs:
           sudo apt update && sudo apt upgrade -y
           sudo apt install gcc-multilib
           SDK_MANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
-          sudo $SDK_MANAGER --install "ndk;26.1.10909125" "platforms;android-29"
+          sudo $SDK_MANAGER --install "ndk;26.2.11394342" "platforms;android-29"
           
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
           cargo install cargo-apk --git https://github.com/korejan/cargo-apk.git --branch android-manifest-entries
