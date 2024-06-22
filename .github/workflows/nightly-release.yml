@@ -585,7 +585,7 @@ jobs:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, SPIRV-Tools, Glslang
           vulkan-use-cache: true
-      # - uses: Jimver/cuda-toolkit@v0.2.10
+      # - uses: Jimver/cuda-toolkit@v0.2.15
       #   id: cuda-toolkit
       #   with:
       #     method: 'network'
@@ -642,7 +642,7 @@ jobs:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, SPIRV-Tools, Glslang
           vulkan-use-cache: true
-      - uses: Jimver/cuda-toolkit@v0.2.11
+      - uses: Jimver/cuda-toolkit@v0.2.15
         id: cuda-toolkit
         with:
           method: 'network'
@@ -715,7 +715,7 @@ jobs:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, SPIRV-Tools, Glslang
           vulkan-use-cache: true
-      - uses: Jimver/cuda-toolkit@v0.2.11
+      - uses: Jimver/cuda-toolkit@v0.2.15
         id: cuda-toolkit
         with:
           method: 'network'
