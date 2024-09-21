@@ -419,7 +419,8 @@ jobs:
     env:
       RUST_BACKTRACE: 1
       ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/27.1.12297006
-      ANDROID_NDK_HOME: $ANDROID_NDK_ROOT
+      ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/27.1.12297006
+      ANDROID_CMAKE_BIN: /usr/local/lib/android/sdk/cmake/3.30.3/bin
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -439,7 +440,7 @@ jobs:
           sudo apt update && sudo apt upgrade -y
           sudo apt install gcc-multilib
           SDK_MANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
-          yes | sudo $SDK_MANAGER --install "ndk;27.1.12297006" "platforms;android-29"
+          yes | sudo $SDK_MANAGER --install "ndk;27.1.12297006" "platforms;android-29" "cmake;3.30.3"
           
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
           cargo install cargo-apk --git https://github.com/korejan/cargo-apk.git --branch android-manifest-entries
@@ -453,6 +454,7 @@ jobs:
         run: |
           unset ANDROID_HOME
           JAVA_HOME=$JAVA_HOME_17_X64
+          export PATH=$ANDROID_CMAKE_BIN:$PATH
           cargo xtask build-alxr-android --generic --release
           cargo clean
       
@@ -460,6 +462,7 @@ jobs:
         run: |
           unset ANDROID_HOME
           JAVA_HOME=$JAVA_HOME_17_X64
+          export PATH=$ANDROID_CMAKE_BIN:$PATH
           cargo xtask build-alxr-pico --release
           cargo clean
 
@@ -489,7 +492,8 @@ jobs:
     env:
       RUST_BACKTRACE: 1
       ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/27.1.12297006
-      ANDROID_NDK_HOME: $ANDROID_NDK_ROOT
+      ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/27.1.12297006
+      ANDROID_CMAKE_BIN: /usr/local/lib/android/sdk/cmake/3.30.3/bin
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -510,7 +514,7 @@ jobs:
           sudo apt update && sudo apt upgrade -y
           sudo apt install gcc-multilib
           SDK_MANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
-          yes | sudo $SDK_MANAGER --install "ndk;27.1.12297006" "platforms;android-29"
+          yes | sudo $SDK_MANAGER --install "ndk;27.1.12297006" "platforms;android-29" "cmake;3.30.3"
           
           rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
           cargo install cargo-apk --git https://github.com/korejan/cargo-apk.git --branch android-manifest-entries
@@ -524,6 +528,7 @@ jobs:
         run: |
           unset ANDROID_HOME
           JAVA_HOME=$JAVA_HOME_17_X64
+          export PATH=$ANDROID_CMAKE_BIN:$PATH
           cargo xtask build-alxr-android --generic
           pushd ./build/debug/alxr_client_android
           mv alxr-client.apk alxr-client-debug.apk
@@ -534,6 +539,7 @@ jobs:
         run: |
           unset ANDROID_HOME
           JAVA_HOME=$JAVA_HOME_17_X64
+          export PATH=$ANDROID_CMAKE_BIN:$PATH
           cargo xtask build-alxr-pico
           pushd ./build/debug/alxr_client_android
           mv alxr-client-pico.apk alxr-client-pico-debug.apk
