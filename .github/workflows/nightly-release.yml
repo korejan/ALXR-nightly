@@ -16,7 +16,7 @@ jobs:
       upload_url: ${{ steps.create_alxr_release.outputs.upload_url }}
       release_id: ${{ steps.create_alxr_release.outputs.id }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
       - uses: actions-rs/toolchain@v1
@@ -64,7 +64,7 @@ jobs:
       LIBCLANG_PATH: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/libclang.dll'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: v18-server-mod
@@ -119,7 +119,7 @@ jobs:
   #   needs: [prepare_release]
   #   steps:
   #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  #       uses: actions/checkout@v4
   #       with:
   #         repository: "korejan/ALVR"
   #         ref: v18-server-mod
@@ -166,7 +166,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -232,7 +232,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -298,7 +298,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -358,7 +358,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -423,7 +423,7 @@ jobs:
       ANDROID_CMAKE_BIN: /usr/local/lib/android/sdk/cmake/3.31.5/bin
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -496,7 +496,7 @@ jobs:
       ANDROID_CMAKE_BIN: /usr/local/lib/android/sdk/cmake/3.31.5/bin
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -574,7 +574,7 @@ jobs:
       NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -628,7 +628,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -668,7 +668,7 @@ jobs:
       NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -741,7 +741,7 @@ jobs:
       NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -812,7 +812,7 @@ jobs:
       RUST_BACKTRACE: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -871,7 +871,7 @@ jobs:
       RUST_BACKTRACE: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -926,7 +926,7 @@ jobs:
     needs: [build_uwp_app_bundle_debug, build_uwp_app_bundle_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.build_uwp_app_bundle_release.outputs.release_ref }}
