@@ -829,8 +829,8 @@ jobs:
           # Fetch alxr-engine submodule.
           git submodule update --init --recursive
           Start-Process -FilePath .\alvr\openxr-client\alxr-client\uwp\install_uwp_toolchain.bat -Wait -NoNewWindow
-          rustup toolchain install nightly
-          rustup component add rust-src --toolchain nightly-x86_64-pc-windows-msvc
+          rustup toolchain install nightly-2025-03-22
+          rustup component add rust-src --toolchain nightly-2025-03-22-x86_64-pc-windows-msvc
           rustup update
           cargo xtask bump-alxr-versions --nightly
         
@@ -889,8 +889,8 @@ jobs:
           # Fetch alxr-engine submodule.
           git submodule update --init --recursive
           Start-Process -FilePath .\alvr\openxr-client\alxr-client\uwp\install_uwp_toolchain.bat -Wait -NoNewWindow
-          rustup toolchain install nightly
-          rustup component add rust-src --toolchain nightly-x86_64-pc-windows-msvc
+          rustup toolchain install nightly-2025-03-22
+          rustup component add rust-src --toolchain nightly-2025-03-22-x86_64-pc-windows-msvc
           rustup update
           cargo xtask bump-alxr-versions --nightly
       
