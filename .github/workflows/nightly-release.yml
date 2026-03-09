@@ -10,13 +10,13 @@ on:
 
 jobs:
   prepare_release:
-    runs-on: windows-2022
+    runs-on: windows-latest
     outputs:
       release_ref: ${{ steps.output_ref.outputs.release_ref }}
       upload_url: ${{ steps.create_alxr_release.outputs.upload_url }}
       release_id: ${{ steps.create_alxr_release.outputs.id }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
       - uses: actions-rs/toolchain@v1
@@ -56,18 +56,17 @@ jobs:
           prerelease: false
   
   build_windows_server:
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     needs: [prepare_release]
     env:
       # For bindgen to find libclang.dll, we need to give it the path to the Visual Studio package.
       # This is specific to the GitHub windows-2019 runner.
-      LIBCLANG_PATH: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/libclang.dll'
+      LIBCLANG_PATH: 'C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/Llvm/x64/bin/libclang.dll'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
-          ref: v18-server-mod
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -88,6 +87,7 @@ jobs:
           WIX: "wix314-binaries"
           RUST_BACKTRACE: 1
         run: |
+          git submodule update --init --recursive
           cargo xtask build-windows-deps
           cargo xtask publish-server --gpl
           $file = Get-ChildItem -Name .\build\*.exe | Select-Object -f 1
@@ -119,10 +119,9 @@ jobs:
   #   needs: [prepare_release]
   #   steps:
   #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v6
   #       with:
   #         repository: "korejan/ALVR"
-  #         ref: v18-server-mod
   #     - uses: actions-rs/toolchain@v1
   #       with:
   #         toolchain: stable
@@ -148,6 +147,7 @@ jobs:
   #       env:
   #         RUST_BACKTRACE: 1
   #       run: |
+  #         git submodule update --init --recursive 
   #         cargo xtask build-server --release --bundle-ffmpeg --gpl
   #         tar -czvf ./build/alvr_server_linux.tar.gz -C ./build/alvr_server_linux .
       
@@ -169,7 +169,7 @@ jobs:
   #   needs: [prepare_release]
   #   steps:
   #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v6
   #       with:
   #         repository: "korejan/ALVR"
   #         ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -238,7 +238,7 @@ jobs:
   #   needs: [prepare_release]
   #   steps:
   #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v6
   #       with:
   #         repository: "korejan/ALVR"
   #         ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -304,7 +304,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -364,7 +364,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -429,7 +429,7 @@ jobs:
       ANDROID_CMAKE_BIN: /usr/local/lib/android/sdk/cmake/4.1.2/bin
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -502,7 +502,7 @@ jobs:
       ANDROID_CMAKE_BIN: /usr/local/lib/android/sdk/cmake/4.1.2/bin
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -573,14 +573,14 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
 
   build_libalxr_win_x64_release:
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     needs: [prepare_release]
     env:
       RUST_BACKTRACE: 1
-      NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
+      NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/18/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -592,7 +592,7 @@ jobs:
       # - uses: Swatinem/rust-cache@v2
       #   with:
       #     cache-targets: "false"
-      - uses: humbletim/setup-vulkan-sdk@523828e49cd4afabce369c39c7ee6543a2b7a735
+      - uses: humbletim/setup-vulkan-sdk@v1.2.1
         with:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, SPIRV-Tools, Glslang
@@ -634,7 +634,7 @@ jobs:
     needs: [prepare_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -667,14 +667,14 @@ jobs:
           asset_content_type: application/gzip
 
   build_alxr_win_x64_release:
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     needs: [prepare_release]
     env:
       RUST_BACKTRACE: 1
-      NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
+      NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/18/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -686,7 +686,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           cache-targets: "false"
-      - uses: humbletim/setup-vulkan-sdk@523828e49cd4afabce369c39c7ee6543a2b7a735
+      - uses: humbletim/setup-vulkan-sdk@v1.2.1
         with:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, SPIRV-Tools, Glslang
@@ -740,14 +740,14 @@ jobs:
           asset_content_type: application/zip
   
   build_alxr_win_x64_debug:
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     needs: [prepare_release]
     env:
       RUST_BACKTRACE: 1
-      NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
+      NINJA_HOME: 'C:/Program Files/Microsoft Visual Studio/18/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -759,7 +759,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           cache-targets: "false"
-      - uses: humbletim/setup-vulkan-sdk@523828e49cd4afabce369c39c7ee6543a2b7a735
+      - uses: humbletim/setup-vulkan-sdk@v1.2.1
         with:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader, SPIRV-Tools, Glslang
@@ -812,13 +812,13 @@ jobs:
           asset_content_type: application/zip
 
   build_uwp_app_bundle_debug:
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     needs: [prepare_release]
     env:
       RUST_BACKTRACE: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -868,7 +868,7 @@ jobs:
           asset_content_type: application/zip
 
   build_uwp_app_bundle_release:
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     needs: [prepare_release]
     outputs:
       upload_url: ${{ needs.prepare_release.outputs.upload_url }}
@@ -877,7 +877,7 @@ jobs:
       RUST_BACKTRACE: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.prepare_release.outputs.release_ref }}
@@ -932,7 +932,7 @@ jobs:
     needs: [build_uwp_app_bundle_debug, build_uwp_app_bundle_release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: "korejan/ALVR"
           ref: ${{ needs.build_uwp_app_bundle_release.outputs.release_ref }}
