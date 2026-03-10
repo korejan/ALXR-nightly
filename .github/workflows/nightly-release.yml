@@ -49,7 +49,7 @@ jobs:
             
             **Please note:**
             **Only server builds here are compatible.**
-            **Clients v0.78 and above must be used with server v18.23 and above**
+            **Clients v0.79 and above must be used with server v18.24 and above**
             **alxr-client.apk for any android based headset except Pico (install alxr-client-pico.apk instead)**
             
           draft: true
